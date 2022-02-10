@@ -6,8 +6,8 @@ use warnings;
 
 my $filename = 'notfound.txt';
 
-if (-e $filename ) {
+if (-e $filename ) { # default exists?
     say 'found!';
 } else {
-    say "error: $!"; 
+    say "error: $!";  # special variable that contains the error
 }
