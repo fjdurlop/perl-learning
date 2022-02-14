@@ -92,4 +92,42 @@ my $ref_2 = sub{ say "I am an anonymous function"};
 # defunction operator also as:
 $ref_2->();
 
+line();
+# Funding the type of a reference
+my $ref1 = [ 1, 2, 3, 4 ];
+my $ref2 = { one => 1, two => 2, three => 3, four => 4 };
 
+display_ref($ref1);
+display_ref($ref2);
+
+sub display_ref {
+    my $r = shift || '';
+    say ref($r);
+}
+
+line();
+#anonymous array with anonymous hashes inside
+my $musicians = [
+    { name => 'Jimi Hendrix', instrument => 'Guitar', genre => 'Rock' },
+    { name => 'Miles Davis', instrument => 'Trumpet', genre => 'Jazz' },
+    { name => 'Yo-Yo Ma', instrument => 'Cello', genre => 'Classical' },
+    { name => 'Frank Zappa', instrument => 'Guitar', genre => 'Fusion' }
+];
+
+push @{$musicians}, {name => 'fjdurlop', instrument => 'Electric Guitar', genre => 'Regueton'};
+foreach my $m ( @{$musicians} ) {
+    say "$m->{name}: $m->{instrument}, $m->{genre}";
+}
+line();
+my $musicians_2 = [
+    { name => 'Jimi Hendrix', instrument => 'Guitar', genre => 'Rock' },
+    { name => 'Miles Davis', instrument => 'Trumpet', genre => 'Jazz' },
+    { name => 'Yo-Yo Ma', instrument => 'Cello', genre => 'Classical' },
+    { name => 'Frank Zappa', instrument => ['Piano','Vocal'], genre => 'Fusion' }
+];
+
+push @{$musicians_2}, {name => 'fjdurlop', instrument => 'Electric Guitar', genre => 'Regueton'};
+foreach my $m ( @{$musicians_2} ) {
+    my $inst = ref($m->{instrument}) eq 'ARRAY' ? join('/',@{$m->{instrument}}) : $m->{instrument};
+    say "$m->{name}: $inst, $m->{genre}";
+}
